@@ -1,0 +1,88 @@
+.container {
+  width: 100%;
+  padding: 10px 0px;
+  margin: auto;
+}
+
+.container .card {
+  width: 300px;
+  min-height: 140px;
+  background-color: var(--azul-escuro-pri-background);
+  border-radius: 10px;
+  border: 1px solid var(--azul-claro-pri-background);
+  margin: 0 auto;
+  opacity: 70%;
+  position: absolute;
+  top: 20%;
+  left: 10%;
+}
+
+.tabs {
+  text-align: left;
+  position: relative;
+}
+.tabs input {
+  position: absolute;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.content .item {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  position: absolute;
+  padding: 10px 20px;
+}
+
+.tabs input + label {
+  margin: 12px -8px 0.5px -8px;
+  width: 25%;
+  transition: all 0.3s;
+  display: inline-flex;
+  padding: 5pt 10pt;
+  vertical-align: top;
+  justify-content: flex-start;
+  box-shadow: 1px -1px 5px -1px var(--azul-escuro-qua-background);
+  border-radius: 7px 7px 0 0 !important;
+  cursor: pointer;
+}
+
+.tabs input {
+  position: relative;
+  opacity: 0;
+  margin: auto !important;
+  padding: 0;
+}
+
+#tab-1:checked ~ .glider {
+  left: 3.0%;
+}
+
+#tab-2:checked ~ .glider {
+    left: 39%;
+}
+  
+#tab-1:checked ~ section #content-1,
+#tab-2:checked ~ section #content-2{
+    opacity: 1;
+    visibility: visible;
+}
+
+.glider {
+  width: 25%;
+  padding: 0px 13.5px;
+  height: 4.5px;
+  border-radius: 0 0 1px 1px;
+  position: absolute;
+  background: linear-gradient(
+    113deg,
+    var(--azul-escuro-qua-background) 0%,
+    var(--azul-claro-pri-background) 100%
+  );
+  transition: all 0.3s;
+  top: 36px;
+  margin-top: 3px;
+  z-index: 2;
+}

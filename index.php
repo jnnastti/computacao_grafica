@@ -7,6 +7,7 @@
         <link rel="stylesheet" type="text/css" href="./css/padrao.css">
         <link rel="stylesheet" type="text/css" href="./css/nav.css">
         <link rel="stylesheet" type="text/css" href="./css/clouds.css">
+        <link rel="stylesheet" type="text/css" href="./css/novoaviao.css">
 
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/play-list-add.css' rel='stylesheet'>
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/airplane.css' rel='stylesheet'>
@@ -22,5 +23,6 @@
             <div class="aviao"></div>
         </div>
 
+    <?php include("./cmp/popups/novoaviao.html");?>
     </body>
 </html>
