@@ -1,0 +1,26 @@
+<html lang="pt-BR">
+        
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Radar </title>
+        <link rel="stylesheet" type="text/css" href="./css/padrao.css">
+        <link rel="stylesheet" type="text/css" href="./css/nav.css">
+        <link rel="stylesheet" type="text/css" href="./css/clouds.css">
+
+        <link href='https://unpkg.com/css.gg@2.0.0/icons/css/play-list-add.css' rel='stylesheet'>
+        <link href='https://unpkg.com/css.gg@2.0.0/icons/css/airplane.css' rel='stylesheet'>
+        <link href='https://unpkg.com/css.gg@2.0.0/icons/css/arrows-expand-down-right.css' rel='stylesheet'>
+        <link href='https://unpkg.com/css.gg@2.0.0/icons/css/edit-black-point.css' rel='stylesheet'>
+    </head>
+    <body>
+        <?php include("./cmp/clouds/clouds.php");?>
+        
+        <?php include("./cmp/navbar/nav.html");?>
+
+        <div class="containeraviao">
+            <div class="aviao"></div>
+        </div>
+
+    </body>
+</html>
