@@ -1,0 +1,84 @@
+.rot form {
+    display: grid;
+    grid-template-areas:
+        "fielditems fielditems"
+        "fieldcirecao fieldcirecao"
+        "linha linha"
+        "fieldangulo fieldrotacao";
+        grid-template-rows: 20% 20% 1% 30%;
+    grid-template-columns: 30% 40%;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+    justify-items: center;
+    column-gap: 30%;
+}
+
+.rot form fieldset {
+    padding: 0!important;
+    margin: 0!important;
+}
+  
+.rot form .item1 {
+    border: none;
+    grid-area: fielditems;
+    display: grid;
+    grid-template-columns: 15px 120px 15px 120px 140px;
+    align-items: center;
+}
+
+.rot form .item2 {
+    border: none;
+    grid-area: fieldcirecao;
+    display: grid;
+    grid-template-columns: 15px 120px 15px 120px 140px;
+    align-items: center;
+}
+
+.rot form hr {
+    width: 90%;
+    color: var(--azul-escuro-qua-background);
+    grid-area: linha;
+    margin: 10px 0px;
+}
+
+.rot form .item3 {
+    grid-area: fieldangulo;
+    border: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.rot form .item3 button {
+    margin: 0px!important;
+}
+
+.rot form .item4 {
+    grid-area: fieldrotacao;
+    margin-top: 20px;
+    border: none;
+    display: grid;
+    grid-template-areas: 
+    "ti ti ti ti"
+    "lab1 in1 lab2 in2";
+    grid-template-columns: 3% 30% 3% 30%;
+    text-align: center;
+}
+
+.rot form .item4 h3 {
+    grid-area: ti;
+}
+
+.rot form .item4 #coorXE {
+    grid-area: in1;
+}
+.rot form .item4 #coorYE {
+    grid-area: in2;
+}
+
+.rot form .item4 label:first-child {
+    grid-area: lab1;
+}
+.rot form .item4 label:last-child {
+    grid-area: lab2;
+}
