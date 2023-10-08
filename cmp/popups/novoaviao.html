@@ -1,22 +1,32 @@
 
-<section class="container">
+<section class="container" id="popup">
     <div class="card tabs">
         <input id="tab-1" type="radio" class="tab tab-selector" checked="checked" name="tab" />
-        <label for="tab-1" class="tab">Polar</label>
+        <label for="tab-1" class="tab">Cartesiana</label>
     
         <input id="tab-2" type="radio" class="tab tab-selector" name="tab" />
-        <label for="tab-2" class="tab">Cartesiana</label>
+        <label for="tab-2" class="tab">Polar</label>
     
         <div class="glider"></div>
     
-        <section class="content">
-            <div class="item" id="content-1">
-           jdjfkdlsfs
-            </div>
-            <div class="item" id="content-2">
-                342342
-            </div>
-            
-        </section>
+        <form class="content">
+            <fieldset class="item" id="content-1">
+                <label for="coorX"> X </label>
+                <input type="number" name="coorX" id="coorX" />
+                <label for="coorY"> Y </label>
+                <input type="number" name="coorY" id="coorY" />
+            </fieldset>
+            <fieldset class="item" id="content-2">
+                <label for="raio"> Raio </label>
+                <input type="number" name="coorX" id="coorX" />
+                <label for="angulo"> Ângulo </label>
+                <input type="number" name="angulo" id="angulo" />
+            </fieldset>
+            <fieldset class="direcaoField">
+                <label for="direcao"> Direção </label>
+                <input type="number" name="direcao" id="direcao">
+                <button> Inserir </button> 
+            </fieldset>
+        </form>
     </div>
 </section>

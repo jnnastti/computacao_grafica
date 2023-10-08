@@ -20,6 +20,68 @@ body {
     overflow-x: hidden;
 }
 
+* {
+    color: var(--branco);
+}
+
+#popup.container {
+    width: 100%;
+    padding: 10px 0px;
+    margin: auto;
+}
+  
+#popup.container .card {
+    width: 400px;
+    min-height: 140px;
+    background-color: var(--azul-escuro-pri-background);
+    border-radius: 10px;
+    border: 1px solid var(--azul-escuro-qua-background);
+    margin: 0 auto;
+    opacity: 70%;
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    padding: 5px;
+}
+
+#popup form {
+    display: grid;
+    grid-template: 
+    "fielditems" 50%
+    "fieldcirecao" 50%;
+}
+
+#popup form fieldset {
+    border: none;
+    grid-area: fielditems;
+    display: grid;
+    grid-template-columns: 45px 150px 45px 150px;
+    align-items: center;
+}
+
+#popup form fieldset input {
+    border-radius: 8px;
+    border: 1px solid var(--azul-escuro-qua-background);
+    padding: 6px 3px;
+    margin: 0px 10px;
+    background-color: var(--azul-escuro-sec-background);
+}
+
+#popup form button {
+    margin: 10px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 0;
+    background-color: var(--azul-escuro-qua-background);
+    cursor: pointer;
+    transition: all 0.4s;
+    color: var(--branco);
+}
+
+#popup form button:hover {
+    background-color: var(--azul-escuro-ter-background);
+}
+
 .aviao {
     position: absolute;
     width: 100px; /* Largura do avião */
