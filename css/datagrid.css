@@ -1,0 +1,59 @@
+
+
+table {
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 15px;
+    color: var(--branco);
+}
+
+th {
+    text-align: left;
+}
+
+thead th {
+    background-color: var(--azul-escuro-ter-background);
+}
+
+tr:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+tr:not(:last-child) {
+    position: relative;
+    border-bottom: 1px solid var(--azul-escuro-ter-background);
+}
+
+.checkbox {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox__input {
+    position: absolute;
+    width: 1.375em;
+    height: 1.375em;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.checkbox__input:checked + .checkbox__icon .tick {
+    stroke-dashoffset: 0;
+}
+
+.checkbox__icon {
+    width: 1.375em;
+    height: 1.375em;
+    flex-shrink: 0;
+    overflow: visible;
+}
+
+.checkbox__icon .tick {
+    stroke-dasharray: 20px;
+    stroke-dashoffset: 20px;
+    transition: stroke-dashoffset 0.2s ease-out;
+}

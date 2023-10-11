@@ -114,8 +114,11 @@ body {
 }
   
 #popup.container .card {
-    width: 425px;
+    min-width: 425px;
     min-height: 140px;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: var(--azul-escuro-pri-background);
     border-radius: 10px;
     border: 1px solid var(--azul-escuro-qua-background);

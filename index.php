@@ -4,11 +4,11 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> Radar </title>
-        <link rel="stylesheet" type="text/css" href="./css/nav.css">
+        <link rel="stylesheet" type="text/css" href="./css/padrao.css">
         <link rel="stylesheet" type="text/css" href="./css/clouds.css">
         <link rel="stylesheet" type="text/css" href="./css/novoaviao.css">
-        <link rel="stylesheet" type="text/css" href="./css/padrao.css">
         <link rel="stylesheet" type="text/css" href="./css/transformacao.css">
+        <link rel="stylesheet" type="text/css" href="./css/datagrid.css">
 
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/play-list-add.css' rel='stylesheet'>
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/airplane.css' rel='stylesheet'>
@@ -26,6 +26,8 @@
 
     <?php //include("./cmp/popups/novoaviao.html");?>
 
-    <?php include("./cmp/popups/transformacao.html");?>
+    <?php //include("./cmp/popups/transformacao.html");?>
+
+    <?php include("./cmp/popups/datagrid.html");?>
     </body>
 </html>
