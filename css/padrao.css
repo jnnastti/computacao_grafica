@@ -107,13 +107,14 @@ body {
     color: #98D7EC;
 }
 
-#popup.container {
+.popup.container {
     width: 100%;
     padding: 10px 0px;
     margin: auto;
+    display: none;
 }
   
-#popup.container .card {
+.popup.container .card {
     min-width: 425px;
     min-height: 140px;
     max-height: 300px;
@@ -130,7 +131,7 @@ body {
     padding: 5px;
 }
 
-#popup form fieldset input {
+.popup form fieldset input {
     border-radius: 8px;
     border: 1px solid var(--azul-escuro-qua-background);
     padding: 6px 3px;
@@ -138,7 +139,7 @@ body {
     background-color: var(--azul-escuro-sec-background);
 }
 
-#popup form button {
+.popup form button {
     margin: 10px;
     padding: 8px;
     border-radius: 8px;
@@ -149,8 +150,12 @@ body {
     color: var(--branco);
 }
 
-#popup form button:hover {
+.popup form button:hover {
     background-color: var(--azul-escuro-ter-background);
+}
+
+.datagrid .card{
+    top: 60%!important;
 }
 
 .aviao {

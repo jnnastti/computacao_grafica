@@ -24,10 +24,12 @@
             <div class="aviao"></div>
         </div>
 
-    <?php //include("./cmp/popups/novoaviao.html");?>
+    <?php include("./cmp/popups/novoaviao.html");?>
 
-    <?php //include("./cmp/popups/transformacao.html");?>
+    <?php include("./cmp/popups/transformacao.html");?>
 
     <?php include("./cmp/popups/datagrid.html");?>
     </body>
+
+    <script src="./js/main.js"></script>
 </html>
