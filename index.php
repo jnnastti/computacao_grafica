@@ -24,11 +24,19 @@
             <div class="aviao"></div>
         </div>
 
-    <?php include("./cmp/popups/novoaviao.html");?>
+        <?php include("./cmp/popups/novoaviao.html");?>
 
-    <?php include("./cmp/popups/transformacao.html");?>
+        <?php include("./cmp/popups/transformacao.html");?>
 
-    <?php include("./cmp/popups/datagrid.html");?>
+        <?php include("./cmp/popups/datagrid.html");?>
+
+        <section id="monitoramento">
+            <div class="radar">
+                <span class="blip"></span>
+                <span class="circle"></span>
+            </div>
+        </section>
+        
     </body>
 
     <script src="./js/main.js"></script>

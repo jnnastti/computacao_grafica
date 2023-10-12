@@ -112,6 +112,8 @@ body {
     padding: 10px 0px;
     margin: auto;
     display: none;
+    position: absolute;
+    top: 25%;
 }
   
 .popup.container .card {
@@ -127,7 +129,7 @@ body {
     opacity: 70%;
     position: absolute;
     top: 20%;
-    left: 10%;
+    left: 8%;
     padding: 5px;
 }
 
@@ -154,7 +156,7 @@ body {
     background-color: var(--azul-escuro-ter-background);
 }
 
-.datagrid .card{
+.datagrid {
     top: 60%!important;
 }
 
@@ -178,5 +180,56 @@ body {
     }
     100% {
         transform: translateX(-50%) translateY(50vh); /* Posição no meio da tela */
+    }
+}
+
+#monitoramento {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin-left: 30%;
+}
+
+.radar {
+    width: 40%;
+    height: 60%;
+    opacity: 90%;
+    background-color: var(--azul-escuro-ter-background);
+    border-radius: 50%;
+    position: relative;
+    border: 2px dashed var(--azul-escuro-qua-background);
+}
+
+.blip {
+    width: 10px;
+    height: 10px;
+    background-color: var(--preto);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+}
+
+.circle {
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--azul-claro-ter-background);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    animation: pulse 2s linear infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(0.5);
+    }
+    100% {
+        transform: scale(1);
     }
 }
