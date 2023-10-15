@@ -40,6 +40,7 @@ function inserirAviao(){
 
         x = coorX
         y = coorY
+        raio, angulo = cartesianoParaPolar(x, y)
         // chamar a função que o david criou para transformar cartesiano em polar, não sei fazer isso do JS pro PHP :/ e depois atribuir o valor as lets angulo e raio
 
     }
@@ -51,13 +52,14 @@ function inserirAviao(){
 
         angulo = coorAngulo
         raio   = coorRaio
+        x, y = polarParaCartesiano(raio, angulo)
         // chamar função que o david criou para transformar polar em cartesiano, não sei fazer isso do JS pro php :/ e depois atribuir o valor as lets x e y
         
     }
 
     // ao chegar nesse ponto do código ja deve ter todos os valores x, y, angulo, raio, velocidade e direcao preenchidos
     if (x && y && angulo && raio && inputVelocidade && inputDirecao) {
-        // verificar se ja não existem 10 avioes no datagrid e adicionar caso tenha menos de 10
+        // verificar se ja não existem 10 avioes no datagrid e adicionar caso tenha menos de 10 essa parte pelo o que vi está hardcoded ainda então não da pra fazer por hora
     }
 }
 
@@ -73,5 +75,5 @@ function substituirVirgulaPorPonto(input) {
 
 function limitarCasasDecimais(numero) {
     return parseFloat(numero.toFixed(2)); // duas casas após a virgula
-    
+
 }
