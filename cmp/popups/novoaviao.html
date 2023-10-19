@@ -12,19 +12,19 @@
         <form class="content">
             <fieldset class="item" id="content-1">
                 <label for="coorX"> X </label>
-                <input type="number" name="coorX" id="coorX" />
+                <input type="text" oninput="this.value = tratarInputNumeros(this)" name="coorX" id="coorX"  />
                 <label for="coorY"> Y </label>
-                <input type="number" name="coorY" id="coorY" />
+                <input type="text" oninput="this.value = tratarInputNumeros(this)" name="coorY" id="coorY" />
             </fieldset>
             <fieldset class="item" id="content-2">
                 <label for="raio"> Raio </label>
-                <input type="number" name="coorRaio" id="coorRaio" min="0"/>
+                <input type="text" oninput="this.value = tratarInputNumeros(this)" name="coorRaio" id="coorRaio" min="0"/>
                 <label for="angulo"> Ângulo </label>
-                <input type="number" name="angulo" id="angulo" min="0"/>
+                <input type="text" oninput="this.value = tratarInputNumeros(this)" name="angulo" id="angulo" min="0"/>
             </fieldset>
             <fieldset class="direcaoField">
                 <label for="direcao"> Direção </label>
-                <input type="number" name="direcao" id="direcao">
+                <input type="text" oninput="this.value = tratarInputNumeros(this)" name="direcao" id="direcao">
                 <button onclick="inserirAviao()"> Inserir </button> 
             </fieldset>
         </form>
