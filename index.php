@@ -21,7 +21,7 @@
         <?php include("./cmp/navbar/nav.html");?>
 
         <div class="containeraviao">
-            <div class="aviao"></div>
+            <div class="aviao"><img src="./cmp/imgs/aviao.svg" alt=""></div>
         </div>
 
         <?php include("./cmp/popups/novoaviao.html");?>
