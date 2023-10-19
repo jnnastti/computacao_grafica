@@ -1,4 +1,4 @@
-aviao = []
+avioes = []
 
 // show hidden tela
 function habilitarDesabilitarTela(nome) {
@@ -28,19 +28,6 @@ function checkAviao(id) {
     
 }
 
-// verifica se campos estão preenchidos
-function verificaCampos(x, y, r, a, d) {
-    if(d == null || d == '') {
-        return false
-    }
-
-    if(((x == null || x == '') && (y == null || y == '')) || ((r == null || r == '') && (a == null || a == ''))) {
-        return false
-    }
-
-    return true
-}
-
 // inserir avião no datagrid
 function inserirAviao() {
     let coorX           = document.querySelector('#coorX').value
@@ -49,15 +36,20 @@ function inserirAviao() {
     let coorAngulo      = document.querySelector('#angulo').value
     let inputDirecao    = document.querySelector('#direcao').value
 
-    if(verificaCampos(coorX,coorY, coorRaio, coorAngulo, inputDirecao)) {
-        if(!((coorX == null || coorX == '') && (coorY == null || coorY == ''))) {
-            cartesianoParaPolar(x, y)
-        }
-
-        if(!((raio == null || raio == '') && (angulo == null || angulo == ''))) {
-            polarParaCartesiano(raio, angulo)
-        }
+    if(inputDirecao == null || inputDirecao == '') {
+        return false
     }
+
+    if(!((coorX == null || coorX == '') && (coorY == null || coorY == ''))) {
+        cartesianoParaPolar(coorX, coorY)
+    }
+
+    if(!((coorRaio == null || coorRaio == '') && (coorAngulo == null || coorAngulo == ''))) {
+        polarParaCartesiano(coorRaio, coorAngulo)
+    }
+
+    atualizarDatagrid()
+    
 }
 
 // função para converter cartesiano para polar
@@ -65,8 +57,8 @@ function cartesianoParaPolar(x, y) {
     let raio = Math.sqrt(x * x + y * y);
     let angulo = Math.atan2(y, x);
 
-    if(aviao.length < 10) {
-        aviao.push({
+    if(avioes.length < 10) {
+        avioes.push({
             x : x,
             y : y,
             raio : raio,
@@ -94,6 +86,7 @@ function tratarInputNumeros(inp) {
     return limitarCasasDecimais(valor);
 }
 
+// tratativa de casas decimais
 function limitarCasasDecimais(numero) {
    const parts = numero.split('.');
   
@@ -104,5 +97,117 @@ function limitarCasasDecimais(numero) {
     }
 
     return numero
+}
 
+// atualziar registros do dg
+function atualizarDatagrid() {
+    let dg = document.querySelector('#tbdatagrid table')
+    let svg = criarSvgCheck()
+
+    dg.innerHTML = ""
+
+    dg.appendChild(gerarTituloDatagrid())
+
+    for(let i = 0; i < avioes.length; i++) {
+        let tr = document.createElement('tr')
+        let tdcheck = document.createElement('td')
+
+        let incheck = document.createElement('input')
+
+        tr.id = `aviao${i+1}`
+
+        tdcheck.classList.add('checkbox')
+
+        incheck.classList.add('checkbox__input')
+        incheck.type = 'checkbox'
+        incheck.onchange = checkAviao(i+1);
+
+        tdcheck.appendChild(incheck)
+        tdcheck.appendChild(svg)
+
+        tr.appendChild(tdcheck)
+
+        tr.appendChild(gerarColDatagrid(i))
+        tr.appendChild(gerarColDatagrid(avioes[i].x))
+        tr.appendChild(gerarColDatagrid(avioes[i].y))
+        tr.appendChild(gerarColDatagrid(avioes[i].raio))
+        tr.appendChild(gerarColDatagrid(avioes[i].angulo))
+        tr.appendChild(gerarColDatagrid(avioes[i].direcao)) 
+
+       
+    }
+}
+
+function gerarTituloDatagrid() {
+    let tr = document.createElement('tr')
+    let thAtivo = document.createElement('th')
+    let thId = document.createElement('th')
+    let thCoordX = document.createElement('th')
+    let thCoordY = document.createElement('th')
+    let thRaio = document.createElement('th')
+    let thAngulo = document.createElement('th')
+    let thDirecao = document.createElement('th')
+
+    thAtivo.innerText = 'Ativo'
+    thId.innerText = 'ID'
+    thCoordX.innerText = 'Coord X'
+    thCoordY.innerText = 'Coord Y'
+    thRaio.innerText = 'Raio'
+    thAngulo.innerText = 'Ângulo'
+    thDirecao.innerText = 'Direção'
+
+    tr.appendChild(thAtivo)
+    tr.appendChild(thId)
+    tr.appendChild(thCoordX)
+    tr.appendChild(thCoordY)
+    tr.appendChild(thRaio)
+    tr.appendChild(thAngulo)
+    tr.appendChild(thDirecao)
+
+    return tr
+}
+
+// função separada para criar o svg
+function criarSvgCheck() {
+    let svg = document.createElement('svg')
+    let rect = document.createElement('rect')
+    let path = document.createElement('path')
+
+    svg.classList.add('checkbox__icon')
+
+    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg")
+    svg.setAttribute("viewBox", "0 0 22 22")
+
+    rect.setAttribute("width", "21")
+    rect.setAttribute("height", "21")
+    rect.setAttribute("x", ".5")
+    rect.setAttribute("y", ".5")
+    rect.setAttribute("fill", "#FFF")
+    rect.setAttribute("stroke", "#006F94")
+    rect.setAttribute("rx", "3")
+
+    path.classList.add("tick")
+
+    path.setAttribute("stroke", "#6EA340")
+    path.setAttribute("fill", "none")
+    path.setAttribute("stroke-linecap", "round")
+    path.setAttribute("stroke-width", "4")
+    path.setAttribute("d", "M4 10l5 5 9-9")
+
+    svg.appendChild(rect)
+    svg.appendChild(path)
+
+    return svg
+}
+
+// função separada para criar infos do aviao
+function gerarColDatagrid(item) {
+    let td = document.createElement("td")
+    let p = document.createElement("p")
+
+    p.innerText = item
+
+    td.appendChild(p)
+
+    return td
 }
