@@ -162,24 +162,25 @@ body {
 
 .aviao {
     position: absolute;
-    width: 100px; /* Largura do avião */
-    height: 50px; /* Altura do avião */
-    background-color: red;
-    top: -50px; /* Posição inicial no topo da tela */
+    /*width: 100px; /* Largura do avião */
+    /* height: 50px; Altura do avião */
+    /* background-color: red; */ 
+    top: 100%; /* Posição inicial no topo da tela */
     left: 100%; /* Inicialmente no meio da tela horizontalmente */
     transform: translateX(-50%); /* Centraliza horizontalmente */
-    animation: voar 5s linear forwards; /* Animação com preenchimento no último quadro */
+    animation: voar 1.5s ease-out forwards;/*linear forwards; /* Animação com preenchimento no último quadro */
+}
+
+.aviao img {
+    transform: rotate(-45deg);
 }
 
 @keyframes voar {
     0% {
-        transform: translateX(-50%) translateY(-50px); /* Posição inicial no topo */
-    }
-    50% {
-        transform: translateX(-50%) translateY(50vh); /* Posição no meio da tela */
+        transform: translateX(-50%) translateY(50vh); /* Posição inicial no topo */
     }
     100% {
-        transform: translateX(-50%) translateY(50vh); /* Posição no meio da tela */
+        transform: translateX(-50%) translateY(-140%); /* Posição no meio da tela */
     }
 }
 
