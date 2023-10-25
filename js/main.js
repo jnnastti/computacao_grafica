@@ -1,4 +1,12 @@
-avioes = []
+var avioes = []
+
+// Cria e retorna uma variável Avião
+function Aviao(x, y, raio, angulo) {
+    this.x = x;
+    this.y = y;
+    this.raio = raio;
+    this.angulo = angulo;
+}
 
 // show hidden tela
 function habilitarDesabilitarTela(nome) {
@@ -15,9 +23,10 @@ function habilitarDesabilitarTela(nome) {
 }
 
 // checkar aviao no data grid
+/* TESTANDO, REMOVER COMENTÁRIO DEPOIS
 function checkAviao(id) {
     let aviao = document.getElementById(`aviao${id}`)
-
+    console.log(aviao)
     if (aviao.style.backgroundColor == '') {
         aviao.style.backgroundColor = '#003552'
         return
@@ -27,6 +36,7 @@ function checkAviao(id) {
     return
     
 }
+*/
 
 // inserir avião no datagrid
 function inserirAviao() {
@@ -36,16 +46,16 @@ function inserirAviao() {
     let coorAngulo      = document.querySelector('#angulo').value
     let inputDirecao    = document.querySelector('#direcao').value
 
-    if(inputDirecao == null || inputDirecao == '') {
-        return false
-    }
-
     if(!((coorX == null || coorX == '') && (coorY == null || coorY == ''))) {
         cartesianoParaPolar(coorX, coorY)
     }
 
     if(!((coorRaio == null || coorRaio == '') && (coorAngulo == null || coorAngulo == ''))) {
         polarParaCartesiano(coorRaio, coorAngulo)
+    }
+
+    if(inputDirecao == null || inputDirecao == '') {
+        return false
     }
 
     atualizarDatagrid()
@@ -55,16 +65,27 @@ function inserirAviao() {
 // função para converter cartesiano para polar
 function cartesianoParaPolar(x, y) {
     let raio = Math.sqrt(x * x + y * y);
-    let angulo = Math.atan2(y, x);
-
+    let angulo = Math.atan2(y, x) * (180 / Math.PI); // Adicionei o * (180 / Math.PI) para converter de radiano para degrau
     if(avioes.length < 10) {
-        avioes.push({
-            x : x,
-            y : y,
-            raio : raio,
-            angulo : angulo
-        })
+        let aviao = new Aviao(x, y, raio, angulo)
+        console.log(aviao)
+        avioes.push(aviao)
     }
+    let msg = "Cartesiano -> Polar, Avião adicionado: " + x + " | " + y + " | " + raio + " | " + angulo
+    console.log(msg)
+}
+
+// função para converter polar para cartesiano
+function polarParaCartesiano(coorRaio, coorAngulo) {
+    let x = coorRaio * Math.cos(coorAngulo);
+    let y = coorRaio * Math.sin(coorAngulo);
+    if(avioes.length < 10) {
+        let aviao = new Aviao(x, y, raio, angulo)
+        console.log(aviao)
+        avioes.push(aviao)
+    }
+    let msg = "Polar -> Cartesiano, Avião adicionado: " + x + " | " + y + " | " + coorRaio + " | " + coorAngulo
+    console.log(msg)
 }
 
 // tratamento de inputs
@@ -120,7 +141,7 @@ function atualizarDatagrid() {
 
         incheck.classList.add('checkbox__input')
         incheck.type = 'checkbox'
-        incheck.onchange = checkAviao(i+1);
+        //incheck.onchange = checkAviao(i+1);
 
         tdcheck.appendChild(incheck)
         tdcheck.appendChild(svg)
