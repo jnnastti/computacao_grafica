@@ -1,12 +1,14 @@
 var avioes = []
 
-// Cria e retorna uma variável Avião
-function Aviao(x, y, raio, angulo, direcao) {
+// Cria e retorna uma variavel avião
+function Aviao(x, y, raio, angulo, direcao, ativo = true) {
+    this.id = avioes.length + 1
 	this.x = x;
 	this.y = y;
 	this.raio = limitarCasasDecimais(raio);
 	this.angulo = limitarCasasDecimais(angulo);
 	this.direcao = direcao;
+    this.ativo = ativo
 }
 
 // show hidden tela
@@ -24,7 +26,7 @@ function habilitarDesabilitarTela(nome) {
 }
 
 // checkar aviao no data grid
-/* TESTANDO, REMOVER COMENTÁRIO DEPOIS
+/* TESTANDO, REMOVER COMENTARIO DEPOIS
 function checkAviao(id) {
 	let aviao = document.getElementById(`aviao${id}`)
 	console.log(aviao)
@@ -39,6 +41,14 @@ function checkAviao(id) {
 }
 */
 
+// limpar coordenadas
+function limparCampos() {
+    document.querySelector('#coorX').value = ""
+    document.querySelector('#coorY').value = ""
+    document.querySelector('#coorRaio').value = ""
+    document.querySelector('#angulo').value = ""
+}
+
 // inserir avião no datagrid
 function inserirAviao() {
 	let coorX = document.querySelector('#coorX').value
@@ -46,18 +56,27 @@ function inserirAviao() {
 	let coorRaio = document.querySelector('#coorRaio').value
 	let coorAngulo = document.querySelector('#angulo').value
 	let inputDirecao = document.querySelector('#direcao').value
+    let encontrou = false
 
-	if (!((coorX == null || coorX == '') && (coorY == null || coorY == ''))) {
+    if (inputDirecao == null || inputDirecao == '') {
+		alert("Informe uma direção")
+        return false
+	}
+
+	if (!(coorX == null || coorX == '') && !(coorY == null || coorY == '')) {
 		cartesianoParaPolar(coorX, coorY, inputDirecao)
+        encontrou = true
 	}
 
-	if (!((coorRaio == null || coorRaio == '') && (coorAngulo == null || coorAngulo == ''))) {
+	if (!(coorRaio == null || coorRaio == '') && !(coorAngulo == null || coorAngulo == '')) {
 		polarParaCartesiano(coorRaio, coorAngulo, inputDirecao)
+        encontrou = true
 	}
 
-	if (inputDirecao == null || inputDirecao == '') {
-		return false
-	}
+    if(!encontrou) {
+        alert('Informe uma coordenada')
+        return
+    }
 
 	atualizarDatagrid()
 
@@ -67,12 +86,14 @@ function inserirAviao() {
 function cartesianoParaPolar(x, y, direcao) {
 	let raio = Math.sqrt(x * x + y * y);
 	let angulo = Math.atan2(y, x) * (180 / Math.PI); // Adicionei o * (180 / Math.PI) para converter de radiano para degrau
-	if (avioes.length < 10) {
+	
+    if (avioes.length < 10) {
 		let aviao = new Aviao(x, y, raio, angulo, direcao)
 		console.log(aviao)
 		avioes.push(aviao)
 	}
-	let msg = "Cartesiano -> Polar, Avião adicionado: " + x + " | " + y + " | " + raio + " | " + angulo
+
+	let msg = "Cartesiano -> Polar, avião adicionado: " + x + " | " + y + " | " + raio + " | " + angulo
 	console.log(msg)
 }
 
@@ -80,12 +101,14 @@ function cartesianoParaPolar(x, y, direcao) {
 function polarParaCartesiano(coorRaio, coorAngulo, direcao) {
 	let x = coorRaio * Math.cos(coorAngulo);
 	let y = coorRaio * Math.sin(coorAngulo);
-	if (avioes.length < 10) {
+	
+    if (avioes.length < 10) {
 		let aviao = new Aviao(x, y, coorRaio, coorAngulo, direcao)
 		console.log(aviao)
 		avioes.push(aviao)
 	}
-	let msg = "Polar -> Cartesiano, Avião adicionado: " + x + " | " + y + " | " + coorRaio + " | " + coorAngulo
+
+	let msg = "Polar -> Cartesiano, avião adicionado: " + x + " | " + y + " | " + coorRaio + " | " + coorAngulo
 	console.log(msg)
 }
 
@@ -127,7 +150,6 @@ function limitarCasasDecimais(numero) {
 // atualziar registros do dg
 function atualizarDatagrid() {
 	let dg = document.querySelector('#tbdatagrid table')
-	let svg = criarSvgCheck()
 
 	dg.innerHTML = ""
 
@@ -143,20 +165,29 @@ function atualizarDatagrid() {
 
 		tdcheck.classList.add('checkbox')
 
-		incheck.classList.add('checkbox__input')
 		incheck.type = 'checkbox'
-		//incheck.onchange = checkAviao(i+1);
+        incheck.checked = avioes[i].ativo
+		
+        incheck.addEventListener('change', (event) => {
+            let val = event.target.checked
+
+            avioes.map((aviao) => {
+                if(aviao.id == i+1) {
+                    aviao.ativo = val
+                }
+            })
+            
+        })
 
 		tdcheck.appendChild(incheck)
-		tdcheck.appendChild(svg)
 
 		tr.appendChild(tdcheck)
-		tr.appendChild(gerarColDatagrid(i))
-		tr.appendChild(gerarColDatagrid(avioes[i].x))
-		tr.appendChild(gerarColDatagrid(avioes[i].y))
-		tr.appendChild(gerarColDatagrid(avioes[i].raio))
-		tr.appendChild(gerarColDatagrid(avioes[i].angulo))
-		tr.appendChild(gerarColDatagrid(avioes[i].direcao))
+		tr.appendChild(gerarColDatagrid(i+1))
+		tr.appendChild(gerarColDatagrid(limitarCasasDecimais(avioes[i].x)))
+		tr.appendChild(gerarColDatagrid(limitarCasasDecimais(avioes[i].y)))
+		tr.appendChild(gerarColDatagrid(limitarCasasDecimais(avioes[i].raio)))
+		tr.appendChild(gerarColDatagrid(limitarCasasDecimais(avioes[i].angulo)))
+		tr.appendChild(gerarColDatagrid(limitarCasasDecimais(avioes[i].direcao)))
 		dg.appendChild(tr)
 
 	}
@@ -191,39 +222,6 @@ function gerarTituloDatagrid() {
 	return tr
 }
 
-// função separada para criar o svg
-function criarSvgCheck() {
-	let svg = document.createElement('svg')
-	let rect = document.createElement('rect')
-	let path = document.createElement('path')
-
-	svg.classList.add('checkbox__icon')
-
-	svg.setAttribute("xmlns", "http://www.w3.org/2000/svg")
-	svg.setAttribute("viewBox", "0 0 22 22")
-
-	rect.setAttribute("width", "21")
-	rect.setAttribute("height", "21")
-	rect.setAttribute("x", ".5")
-	rect.setAttribute("y", ".5")
-	rect.setAttribute("fill", "#FFF")
-	rect.setAttribute("stroke", "#006F94")
-	rect.setAttribute("rx", "3")
-
-	path.classList.add("tick")
-
-	path.setAttribute("stroke", "#6EA340")
-	path.setAttribute("fill", "none")
-	path.setAttribute("stroke-linecap", "round")
-	path.setAttribute("stroke-width", "4")
-	path.setAttribute("d", "M4 10l5 5 9-9")
-
-	svg.appendChild(rect)
-	svg.appendChild(path)
-
-	return svg
-}
-
 // função separada para criar infos do aviao
 function gerarColDatagrid(item) {
 	let td = document.createElement("td")
@@ -235,3 +233,40 @@ function gerarColDatagrid(item) {
 
 	return td
 }
+
+// função de translandar
+function transladarAviao() {
+    let deslocamentoX = document.getElementById('coorXT').value
+    let deslocamentoY = document.getElementById('coorYT').value
+
+    avioes.map((aviao) => {
+        if(aviao.ativo) {
+            // Realiza a translação somando os deslocamentos às coordenadas existentes
+            aviao.x = parseFloat(aviao.x) + parseFloat(deslocamentoX);
+            aviao.y = parseFloat(aviao.y) + parseFloat(deslocamentoY);
+        }
+    })
+
+    atualizarDatagrid()
+}
+
+// função para escalonar
+function escalonarAviao() {
+    let fatorEscalaXPercentagem = document.getElementById('coorXE').value
+    let fatorEscalaYPercentagem = document.getElementById('coorYE').value
+    
+    avioes.map((aviao) => {
+        if(aviao.ativo) {
+            // Converte as porcentagens em valores decimais
+            let fatorEscalaX = fatorEscalaXPercentagem / 100;
+            let fatorEscalaY = fatorEscalaYPercentagem / 100;
+    
+            // Aplica os fatores de escala às coordenadas existentes
+            aviao.x = parseFloat(aviao.x) * parseFloat(fatorEscalaX);
+            aviao.y = parseFloat(aviao.y) * parseFloat(fatorEscalaY);
+        }
+    })
+
+    atualizarDatagrid()
+  }
+  
