@@ -116,18 +116,18 @@ function rotacionaAviao(){
 	let angulo = document.querySelector('#anguloRotacao').value
 	avioes.map((aviao) => {
         if(aviao.ativo) {
-			aviao.x, aviao.y = rotacionarPonto(aviao.x, aviao.y, angulo || 0.0)
+			aviao.x = aviao.x * Math.cos(angulo) - aviao.y * Math.sin(angulo)
+
+			aviao.y = aviao.y * Math.cos(angulo) + aviao.x * Math.sin(angulo)
         }
     })
 	atualizarDatagrid()
 }
 
 function rotacionarPonto(x, y, angulo){
-	x = (x * Math.cos(angulo)) - (y * Math.sin(angulo))
 
-	y = (y * Math.cos(angulo)) + (x * Math.sin(angulo))
 	console.log(x,y); // debug
-	return x, y // retorna os dois pontos ja nas suas posições rotacionadas
+	//return x, y // retorna os dois pontos ja nas suas posições rotacionadas
 }
 
 // tratamento de inputs
