@@ -112,6 +112,24 @@ function polarParaCartesiano(coorRaio, coorAngulo, direcao) {
 	console.log(msg)
 }
 
+function rotacionaAviao(){
+	let angulo = document.querySelector('#anguloRotacao').value
+	avioes.map((aviao) => {
+        if(aviao.ativo) {
+			aviao.x, aviao.y = rotacionarPonto(aviao.x, aviao.y, angulo || 0.0)
+        }
+    })
+	atualizarDatagrid()
+}
+
+function rotacionarPonto(x, y, angulo){
+	x = (x * Math.cos(angulo)) - (y * Math.sin(angulo))
+
+	y = (y * Math.cos(angulo)) + (x * Math.sin(angulo))
+	console.log(x,y); // debug
+	return x, y // retorna os dois pontos ja nas suas posições rotacionadas
+}
+
 // tratamento de inputs
 function tratarInputNumeros(inp) {
 	let v = inp.value
