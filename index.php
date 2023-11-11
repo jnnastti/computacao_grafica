@@ -31,7 +31,7 @@
         <?php include("./cmp/popups/datagrid.html");?>
 
         <section id="monitoramento">
-            <div class="radar">
+            <div class="radar" id="radar">
                 <span class="blip"></span>
                 <span class="circle"></span>
             </div>

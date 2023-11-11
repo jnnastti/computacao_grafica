@@ -209,6 +209,8 @@ function atualizarDatagrid() {
 		dg.appendChild(tr)
 
 	}
+
+	desenharAviao()
 }
 
 function gerarTituloDatagrid() {
@@ -286,5 +288,56 @@ function escalonarAviao() {
     })
 
     atualizarDatagrid()
-  }
+}
+
+function desenharAviao() {
+	let radar = document.getElementById('radar')
+	let blip = document.createElement('span')
+	let circle = document.createElement('img')
+
+	radar.innerHTML = ""
+
+	blip.classList.add('blip')
+	circle.classList.add('circle')
+
+	radar.appendChild(blip)
+	radar.appendChild(circle)
+
+	for (let i = 0; i < avioes.length; i++) {
+		let img = document.createElement('img')
+		
+		img.src = './cmp/imgs/aviao.svg'
+
+		img.classList.add('av')
+
+		// LIMITAR PARA QUE FIQUE DENTRO DO TAMANHO DO RADAR 400x400 px
+		let coordenadaX = Math.max(-400, Math.min(avioes[i].x, 400));
+    	let coordenadaY = Math.max(-400, Math.min(avioes[i].y, 400));
+
+		if(coordenadaX < 0) {
+			novaCoordX = (coordenadaX * -1) - 200 - 5
+				
+			novaCoordX *= -1
+			
+		} else {
+			novaCoordX = coordenadaX + 200 - 5
+		}
+
+		if(coordenadaY < 0) {
+			novaCoordY = (coordenadaY * -1) + 200 - 5
+		} else {
+			novaCoordY = coordenadaY - 200 - 5
+		}
+
+		if(novaCoordY < 0 || coordenadaY > 200) {
+			novaCoordY *= -1
+		}
+
+		//(coordenadaX + ajusteX -20)
+		
+		img.style.transform = 'translate(' + (novaCoordX) + 'px, ' + (novaCoordY) + 'px) rotate(' + (-avioes[i].direcao + 45) + 'deg)';
+
+		radar.appendChild(img)
+	}
+}
   

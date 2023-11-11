@@ -193,13 +193,14 @@ body {
 }
 
 .radar {
-    width: 40%;
-    height: 60%;
+    width: 400px;/*40%;*/
+    height: 400px;/*60%;*/
     opacity: 90%;
     background-color: var(--azul-escuro-ter-background);
     border-radius: 50%;
     position: relative;
     border: 2px dashed var(--azul-escuro-qua-background);
+    overflow: hidden;
 }
 
 .blip {
@@ -233,4 +234,10 @@ body {
     100% {
         transform: scale(1);
     }
+}
+
+.radar .av {
+    width: 20px;
+    transform-origin: center center;
+    position: absolute;
 }
