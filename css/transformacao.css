@@ -5,7 +5,7 @@
         "fieldcirecao fieldcirecao"
         "linha linha"
         "fieldangulo fieldrotacao";
-        grid-template-rows: 20% 20% 1% 30%;
+    grid-template-rows: 20% 20% 1% 30%;
     grid-template-columns: 30% 40%;
     gap: 5px;
     padding: 0;
@@ -45,8 +45,15 @@
 .rot form .item3 {
     grid-area: fieldangulo;
     border: none;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 40px;
+    margin-left: 70%!important;
     text-align: center;
-    margin-top: 20px;
+}
+
+.rot form .item3 input {
+    margin: 10px 0px!important;
 }
 
 .rot form .item3 button {
@@ -55,14 +62,15 @@
 
 .rot form .item4 {
     grid-area: fieldrotacao;
-    margin-top: 20px;
     border: none;
+    margin-left: -50px!important;
     display: grid;
     grid-template-areas: 
     "ti ti ti ti"
     "lab1 in1 lab2 in2";
-    grid-template-columns: 3% 30% 3% 30%;
+    grid-template-columns: 10% 40% 10% 40%;
     text-align: center;
+    align-items: center;
 }
 
 .rot form .item4 h3 {
@@ -71,9 +79,11 @@
 
 .rot form .item4 #coorXE {
     grid-area: in1;
+    width: 60px;
 }
 .rot form .item4 #coorYE {
     grid-area: in2;
+    width: 60px;
 }
 
 .rot form .item4 label:first-child {

@@ -115,9 +115,22 @@ body {
     position: absolute;
     top: 25%;
 }
+
+#rastreamento {
+    top: 5%!important;
+}
+
+#historico {
+    top: 50%!important;
+}
+
+#reposicionar {
+    top: 15%!important;
+}
   
 .popup.container .card {
     min-width: 425px;
+    max-width: 400px;
     min-height: 140px;
     max-height: 300px;
     overflow-x: hidden;
@@ -162,13 +175,13 @@ body {
 
 .aviao {
     position: absolute;
-    /*width: 100px; /* Largura do avião */
-    /* height: 50px; Altura do avião */
+    /*width: 100px; /* Largura do aviï¿½o */
+    /* height: 50px; Altura do aviï¿½o */
     /* background-color: red; */ 
-    top: 100%; /* Posição inicial no topo da tela */
+    top: 100%; /* Posiï¿½ï¿½o inicial no topo da tela */
     left: 100%; /* Inicialmente no meio da tela horizontalmente */
     transform: translateX(-50%); /* Centraliza horizontalmente */
-    animation: voar 1.5s ease-out forwards;/*linear forwards; /* Animação com preenchimento no último quadro */
+    animation: voar 1.5s ease-out forwards;/*linear forwards; /* Animaï¿½ï¿½o com preenchimento no ï¿½ltimo quadro */
 }
 
 .aviao img {
@@ -177,10 +190,10 @@ body {
 
 @keyframes voar {
     0% {
-        transform: translateX(-50%) translateY(50vh); /* Posição inicial no topo */
+        transform: translateX(-50%) translateY(50vh); /* Posiï¿½ï¿½o inicial no topo */
     }
     100% {
-        transform: translateX(-50%) translateY(-140%); /* Posição no meio da tela */
+        transform: translateX(-50%) translateY(-140%); /* Posiï¿½ï¿½o no meio da tela */
     }
 }
 
