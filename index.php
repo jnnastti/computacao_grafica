@@ -9,6 +9,7 @@
         <link rel="stylesheet" type="text/css" href="./css/novoaviao.css">
         <link rel="stylesheet" type="text/css" href="./css/transformacao.css">
         <link rel="stylesheet" type="text/css" href="./css/datagrid.css">
+        <link rel="stylesheet" type="text/css" href="./css/rastreamento.css">
 
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/play-list-add.css' rel='stylesheet'>
         <link href='https://unpkg.com/css.gg@2.0.0/icons/css/airplane.css' rel='stylesheet'>
@@ -28,6 +29,10 @@
 
         <?php include("./cmp/popups/transformacao.html");?>
 
+        <?php include("./cmp/popups/rastreamento.html");?>
+
+        <?php include("./cmp/popups/historico.html");?>
+
         <?php include("./cmp/popups/datagrid.html");?>
 
         <section id="monitoramento">
@@ -39,5 +44,6 @@
         
     </body>
 
+    <script src="./js/functions.js"></script>
     <script src="./js/main.js"></script>
 </html>

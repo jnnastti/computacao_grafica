@@ -1,0 +1,27 @@
+
+<section class="container rast popup" id="rastreamento">
+    <div class="card tabs">
+    
+        <form class="content">
+            <fieldset class="aeroporto">
+                <label for="distAeroporto"> Aviões próximos ao aeroporto </label>
+                <input type="number" name="distAeroporto" id="distAeroporto" placeholder="Distância Min."/>
+                <button type="button" onclick="verificarAvioesAeroporto()"> Verificar </button>
+            </fieldset>
+
+            <fieldset class="aviaod">
+                <label for="distAvioes"> Aviões próximos um do outro </label>
+                <input type="number" name="distAvioes" id="distAvioes" placeholder="Distância Min."/>
+                <button type="button" onclick="verificarAvioesAvioes()"> Verificar </button>
+            </fieldset>
+            
+            <hr>
+            
+            <fieldset class="rastreio">
+                <label for="rotaColisao"> Rota de colisão </label>
+                <input type="number" name="rotaColisao" id="rotaColisao" placeholder="Tempo Min."/>
+                <button type="button" onclick="VierifcarRotaColisao()"> Verificar </button>
+            </fieldset>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,100 @@
+.rast form {
+    display: grid;
+    grid-template-areas:
+        "fieldaeroporto"
+        "fieldaviaod"
+        "linha"
+        "fieldrastreio";
+    grid-template-rows: 25% 25% 1% 25%;
+    grid-template-columns: 100%;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+    justify-items: center;
+    column-gap: 30%;
+}
+
+.rast form fieldset {
+    padding: 0!important;
+    margin: 0!important;
+    width: 90%;
+}
+  
+.rast form fieldset.aeroporto {
+    border: none;
+    grid-area: fieldaeroporto;
+    display: grid;
+    grid-template-areas: 
+    "titulo1 titulo1"
+    "fieldaeroporto botaoaeroporto";
+    grid-template-columns: 60% 40%;
+    align-items: center;
+}
+
+.rast form .aeroporto label {
+    grid-area: titulo1;
+}
+
+.rast form .aeroporto input {
+    grid-area: fieldaeroporto;
+}
+
+.rast form .aeroporto button {
+    grid-area: botaoaeroporto;
+}
+
+
+.rast form fieldset.aviaod {
+    border: none;
+    grid-area: fieldaviaod;
+    display: grid;
+    grid-template-areas: 
+    "titulo2 titulo2"
+    "fieldaviaod botaoaviaod";
+    grid-template-columns: 60% 40%;
+    align-items: center;
+}
+
+.rast form .aviaod label {
+    grid-area: titulo2;
+}
+
+.rast form .aviaod input {
+    grid-area: fieldaviaod;
+}
+
+.rast form .aviaod button {
+    grid-area: botaoaviaod;
+}
+
+
+.rast form fieldset.rastreio {
+    border: none;
+    grid-area: fieldrastreio;
+    display: grid;
+    grid-template-areas: 
+    "titulo3 titulo3"
+    "fieldrastreio botaorastreio";
+    grid-template-columns: 60% 40%;
+    align-items: center;
+    margin-top: 15px!important;
+}
+
+.rast form .rastreio label {
+    grid-area: titulo3;
+}
+
+.rast form .rastreio input {
+    grid-area: fieldrastreio;
+}
+
+.rast form .rastreio button {
+    grid-area: botaorastreio;
+}
+
+.rast form hr {
+    width: 90%;
+    color: var(--azul-escuro-qua-background);
+    grid-area: linha;
+    margin: 10px 0px;
+}
