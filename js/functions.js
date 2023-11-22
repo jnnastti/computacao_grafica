@@ -127,3 +127,42 @@ function gerarColDatagrid(item) {
 
 	return td
 }
+
+// Essa função é para medir a distância de cada avião do aeroporto (raio)
+// A função recebe um valor float (Odeio que JS não define variável) que será para pegar todos os aviões entre essa distância 
+// do aeroporto
+// E devolve uma lista de todos os aviões encontrado (Odeio que não tem pointers) 
+// https://i.redd.it/kh726uczjnq71.png
+function distanciaMinimaAeroporto(dist) {
+	var avioesEmDistMinima = []
+	for (let aviao of avioes) {
+		if (aviao.raio <= dist) {
+			avioesEmDistMinima.push(aviao);
+		}
+	}
+	return avioesEmDistMinima
+}
+
+// Essa função é para medir a distância entre cada avião em voo
+// A função recebe um valor float que será para pegar todos os pares de aviões que estão entre essa distância 
+// E devolve uma lista de todos os aviões encontrado
+function distanciaMinimaAviao(dist) {
+	// Magia negra para iterar todos os aviões e salvar recursos
+	// Lista contendo pares que estão em uma lista também
+	// Exemplo paresAvioes = [[aviao[1], aviao[2]], [aviao[1], aviao[3]]]
+	paresAvioes = []
+	for (let i = 0; i < avioes.length; i++) {
+		for (let j = i + 1; j < avioes.length; j++) {
+			if(distanciaEntreAvioes(avioes[i], avioes[j]) <= dist) {
+				paresAvioes.push([avioes[i], avioes[j]])
+			}
+		}
+	}
+}
+
+// Função necessária para pegar a distância euclidiana entre 2 aviôes
+function distanciaEntreAvioes(a1, a2) {
+	let distanciaX = a2.x - a1.x;
+    let distanciaY = a2.y - a1.y;
+    return Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
+}
