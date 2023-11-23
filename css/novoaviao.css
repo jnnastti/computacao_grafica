@@ -1,8 +1,9 @@
 .cadaviao form {
   display: grid;
   grid-template: 
-  "fielditems" 50%
-  "fieldcirecao" 50%;
+  "fielditems" 40%
+  "fieldcirecao" 40%
+  "botao" 20%;
 }
 
 .cadaviao form fieldset {
@@ -83,5 +84,9 @@
 
 .cadaviao  .direcaoField {
   grid-area: fieldcirecao!important;
-  grid-template-columns: 45px 150px 195px!important;
+  grid-template-columns: 45px 150px 45px 150px!important;
+}
+
+.cadaviao button {
+  height: max-content;
 }

@@ -1,4 +1,7 @@
 
+#datagrid .card {
+    max-width: none!important;
+}
 
 table {
     border-collapse: collapse;

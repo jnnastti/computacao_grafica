@@ -1,23 +1,24 @@
 var avioes = []
 
 // Cria e retorna uma variavel avião
-function Aviao(x, y, raio, angulo, direcao, ativo = true) {
+function Aviao(x, y, raio, angulo, direcao, velocidade, ativo = true) {
     this.id = avioes.length + 1
 	this.x = x;
 	this.y = y;
 	this.raio = limitarCasasDecimais(raio);
 	this.angulo = limitarCasasDecimais(angulo);
 	this.direcao = direcao;
+	this.velocidade = velocidade;
     this.ativo = ativo
 }
 
 // função para converter cartesiano para polar
-function cartesianoParaPolar(x, y, direcao) {
+function cartesianoParaPolar(x, y, direcao, velocidade) {
 	let raio = Math.sqrt(x * x + y * y);
 	let angulo = Math.atan2(y, x) * (180 / Math.PI); // Adicionei o * (180 / Math.PI) para converter de radiano para degrau
 	
     if (avioes.length < 10) {
-		let aviao = new Aviao(x, y, raio, angulo, direcao)
+		let aviao = new Aviao(x, y, raio, angulo, direcao, velocidade)
 		console.log(aviao)
 		avioes.push(aviao)
 	}
@@ -27,12 +28,12 @@ function cartesianoParaPolar(x, y, direcao) {
 }
 
 // função para converter polar para cartesiano
-function polarParaCartesiano(coorRaio, coorAngulo, direcao) {
+function polarParaCartesiano(coorRaio, coorAngulo, direcao, velocidade) {
 	let x = coorRaio * Math.cos(coorAngulo);
 	let y = coorRaio * Math.sin(coorAngulo);
 	
     if (avioes.length < 10) {
-		let aviao = new Aviao(x, y, coorRaio, coorAngulo, direcao)
+		let aviao = new Aviao(x, y, coorRaio, coorAngulo, direcao, velocidade)
 		console.log(aviao)
 		avioes.push(aviao)
 	}
@@ -47,8 +48,10 @@ function rotacionarPonto(x, y, angulo){
 	x = (x * Math.cos(angulo)) - (y * Math.sin(angulo))
 
 	y = (y * Math.cos(angulo)) + (x * Math.sin(angulo))
-	console.log(x,y); // debug
-	return x, y // retorna os dois pontos ja nas suas posições rotacionadas
+	return {
+		x: x, 
+		y: y
+	} // retorna os dois pontos ja nas suas posições rotacionadas
 }
 
 
@@ -96,6 +99,7 @@ function gerarTituloDatagrid() {
 	let thRaio = document.createElement('th')
 	let thAngulo = document.createElement('th')
 	let thDirecao = document.createElement('th')
+	let thVel = document.createElement('th')
 
 	thAtivo.innerText = 'Ativo'
 	thId.innerText = 'ID'
@@ -104,6 +108,7 @@ function gerarTituloDatagrid() {
 	thRaio.innerText = 'Raio'
 	thAngulo.innerText = 'Ângulo'
 	thDirecao.innerText = 'Direção'
+	thVel.innerText = 'Vel'
 
 	tr.appendChild(thAtivo)
 	tr.appendChild(thId)
@@ -112,6 +117,7 @@ function gerarTituloDatagrid() {
 	tr.appendChild(thRaio)
 	tr.appendChild(thAngulo)
 	tr.appendChild(thDirecao)
+	tr.appendChild(thVel)
 
 	return tr
 }
@@ -129,17 +135,17 @@ function gerarColDatagrid(item) {
 }
 
 // Essa função é para medir a distância de cada avião do aeroporto (raio)
-// A função recebe um valor float (Odeio que JS não define variável) que será para pegar todos os aviões entre essa distância 
-// do aeroporto
-// E devolve uma lista de todos os aviões encontrado (Odeio que não tem pointers) 
-// https://i.redd.it/kh726uczjnq71.png
+// A função recebe um valor float que será para pegar todos os aviões entre essa distância 
+// do aeroporto E devolve uma lista de todos os aviões encontrado 
 function distanciaMinimaAeroporto(dist) {
-	var avioesEmDistMinima = []
+	let avioesEmDistMinima = []
+
 	for (let aviao of avioes) {
 		if (aviao.raio <= dist) {
 			avioesEmDistMinima.push(aviao);
 		}
 	}
+
 	return avioesEmDistMinima
 }
 
@@ -150,7 +156,8 @@ function distanciaMinimaAviao(dist) {
 	// Magia negra para iterar todos os aviões e salvar recursos
 	// Lista contendo pares que estão em uma lista também
 	// Exemplo paresAvioes = [[aviao[1], aviao[2]], [aviao[1], aviao[3]]]
-	paresAvioes = []
+	let paresAvioes = []
+
 	for (let i = 0; i < avioes.length; i++) {
 		for (let j = i + 1; j < avioes.length; j++) {
 			if(distanciaEntreAvioes(avioes[i], avioes[j]) <= dist) {
@@ -158,11 +165,58 @@ function distanciaMinimaAviao(dist) {
 			}
 		}
 	}
+
+	return paresAvioes
 }
 
 // Função necessária para pegar a distância euclidiana entre 2 aviôes
 function distanciaEntreAvioes(a1, a2) {
 	let distanciaX = a2.x - a1.x;
     let distanciaY = a2.y - a1.y;
+
     return Math.sqrt(distanciaX * distanciaX + distanciaY * distanciaY);
 }
+
+//Função para calcular rota de colisão
+function calcularRotaDeColisaoComTempo(tempo) {
+	let avioesEmRotaDeColisao = []
+
+	for (let i = 0; i < avioes.length; i++) {
+		for (let j = i + 1; j < avioes.length; j++) {
+			var emRota = emRotaDeColisao(avioes[i], avioes[j], tempo)
+
+			if(emRota) {
+				avioesEmRotaDeColisao.push(emRota)
+			}
+		}
+	}
+	
+	return avioesEmRotaDeColisao
+}
+
+function emRotaDeColisao(aviao1, aviao2, tempo) {
+	let x1 = aviao1.x
+	let y1 = aviao1.y
+	let v1 = aviao1.velocidade
+	
+	let x2 = aviao2.x
+	let y2 = aviao2.y
+	let v2 = aviao2.velocidade
+
+    // Calcular as posições no momento futuro
+	const x1Futuro = parseFloat(x1) + parseFloat(v1) * parseFloat(tempo);
+    const y1Futuro = parseFloat(y1) + parseFloat(v1) * parseFloat(tempo);
+    const x2Futuro = parseFloat(x2) + parseFloat(v2) * parseFloat(tempo);
+    const y2Futuro = parseFloat(y2) + parseFloat(v2) * parseFloat(tempo);
+
+    // Verificar se os objetos estarão próximos no momento futuro
+    const distanciaAoQuadrado = (x1Futuro - x2Futuro) ** 2 + (y1Futuro - y2Futuro) ** 2;
+
+    // Se a distância ao quadrado for menor que zero, os objetos estão colidindo
+    if (distanciaAoQuadrado < 0) {
+        return { aviao1: aviao1, aviao2: aviao2, x: x1Futuro, y: y1Futuro, tempo: tempo };
+    } else {
+        return false;
+    }
+}
+

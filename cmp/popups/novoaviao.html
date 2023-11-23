@@ -25,8 +25,10 @@
             <fieldset class="direcaoField">
                 <label for="direcao"> Direção </label>
                 <input type="text" oninput="this.value = tratarInputNumeros(this)" name="direcao" id="direcao">
-                <button type="button" onclick="inserirAviao()"> Inserir </button> 
+                <label for="direcao"> Vel. </label>
+                <input type="text" oninput="this.value = tratarInputNumeros(this)" name="velocidade" id="velocidade">
             </fieldset>
+            <button type="button" onclick="inserirAviao()"> Inserir </button> 
         </form>
     </div>
 </section>

@@ -41,20 +41,21 @@ function inserirAviao() {
 	let coorRaio = document.querySelector('#coorRaio').value
 	let coorAngulo = document.querySelector('#angulo').value
 	let inputDirecao = document.querySelector('#direcao').value
+	let inputVel = document.querySelector('#velocidade').value
     let encontrou = false
 
-    if (inputDirecao == null || inputDirecao == '') {
-		alert("Informe uma direção")
+    if (inputDirecao == null || inputDirecao == '' || inputVel == null || inputVel == '') {
+		alert("Informe uma direção e velocidade")
         return false
 	}
 
 	if (!(coorX == null || coorX == '') && !(coorY == null || coorY == '')) {
-		cartesianoParaPolar(coorX, coorY, inputDirecao)
+		cartesianoParaPolar(coorX, coorY, inputDirecao, inputVel)
         encontrou = true
 	}
 
 	if (!(coorRaio == null || coorRaio == '') && !(coorAngulo == null || coorAngulo == '')) {
-		polarParaCartesiano(coorRaio, coorAngulo, inputDirecao)
+		polarParaCartesiano(coorRaio, coorAngulo, inputDirecao, inputVel)
         encontrou = true
 	}
 
@@ -71,9 +72,13 @@ function rotacionaAviao(){
 	let angulo = document.querySelector('#anguloRotacao').value
 	avioes.map((aviao) => {
         if(aviao.ativo) {
-			aviao.x, aviao.y = rotacionarPonto(aviao.x, aviao.y, angulo || 0.0)
+			novasCoordenadas = rotacionarPonto(aviao.x, aviao.y, angulo)
+
+			aviao.x = novasCoordenadas.x
+			aviao.y = novasCoordenadas.y
         }
     })
+
 	atualizarDatagrid()
 }
 
@@ -118,6 +123,7 @@ function atualizarDatagrid() {
 		tr.appendChild(gerarColDatagrid(limitarCasasDecimais(avioes[i].raio)))
 		tr.appendChild(gerarColDatagrid(limitarCasasDecimais(avioes[i].angulo)))
 		tr.appendChild(gerarColDatagrid(limitarCasasDecimais(avioes[i].direcao)))
+		tr.appendChild(gerarColDatagrid(limitarCasasDecimais(avioes[i].velocidade)))
 		dg.appendChild(tr)
 
 	}
@@ -161,6 +167,7 @@ function escalonarAviao() {
     atualizarDatagrid()
 }
 
+// desenhar aviao em tela
 function desenharAviao() {
 	let radar = document.getElementById('radar')
 	let blip = document.createElement('span')
@@ -210,3 +217,85 @@ function desenharAviao() {
 	}
 }
   
+// verificar quais avioes estao perto do aeroporto
+function verificarAvioesAeroporto() {
+	let distancia = document.getElementById('distAeroporto').value
+	let rel = document.getElementById('rel')
+
+	var msg = ""
+
+	rel.innerHTML = "";
+
+	if(distancia == '' || distancia == null) {
+		alert('Informe uma distancia')
+		return false
+	}
+
+	let avioesEmDistMinima = distanciaMinimaAeroporto(distancia)
+
+	if(avioesEmDistMinima.length > 0) {
+		avioesEmDistMinima.map((av) => {
+			msg += `<p>O avião de ID ${av.id} está na próximo demais do aeroporto!</p>`
+		})
+	} else {
+		msg = '<p> Não há nenhum avião próximo do outro</p>'
+	}
+
+	
+
+	rel.innerHTML = msg;
+}
+
+// verificar quais avioes estao perto um do outro
+function verificarAvioesAvioes() {
+	let distancia = document.getElementById('distAvioes').value
+	let rel = document.getElementById('rel')
+
+	var msg = ""
+
+	rel.innerHTML = "";
+
+	if(distancia == '' || distancia == null) {
+		alert('Informe uma distancia')
+		return false
+	}
+
+	let avioesEmDistMinimaAviao = distanciaMinimaAviao(distancia)
+
+	if(avioesEmDistMinimaAviao.length > 0) {
+		avioesEmDistMinimaAviao.map((av) => {
+			msg += `<p>O avião de ID ${av[0].id} está na próximo demais do avião de ID ${av[1].id}!</p>`
+		})
+	} else {
+		msg = '<p> Não há nenhum avião próximo do outro</p>'
+	}
+
+	rel.innerHTML = msg;
+}
+
+// verificar avioes em rota de colisao
+function verificarRotaColisao() {
+	let tempo = document.getElementById('rotaColisao').value
+	let rel = document.getElementById('rel')
+
+	var msg = ""
+
+	rel.innerHTML = "";
+
+	if(tempo == '' || tempo == null) {
+		alert('Informe um tempo minimo')
+		return false
+	}
+
+	let avioesEmRotaDeColisao = calcularRotaDeColisaoComTempo(tempo)
+
+	if(avioesEmRotaDeColisao.length > 0) {
+		avioesEmRotaDeColisao.map((av) => {
+			msg += `<p>O avião de ID ${av.aviao1.id} está irá colidir com o avião de ID ${av.aviao2.id} nas coordenadas (${av.x}, ${av.y}) após ${av.tempo} un. de tempo!</p>`
+		})
+	} else {
+		msg = '<p> Os aviões não colidirão no momento futuro especificado</p>'
+	}
+
+	rel.innerHTML = msg;
+}
