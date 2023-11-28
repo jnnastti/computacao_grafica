@@ -77,11 +77,11 @@
     grid-area: ti;
 }
 
-.rot form .item4 #coorXE {
+.rot form .item4 #coorXR {
     grid-area: in1;
     width: 60px;
 }
-.rot form .item4 #coorYE {
+.rot form .item4 #coorYR {
     grid-area: in2;
     width: 60px;
 }

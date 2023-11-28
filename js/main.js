@@ -70,9 +70,23 @@ function inserirAviao() {
 
 function rotacionaAviao(){
 	let angulo = document.querySelector('#anguloRotacao').value
+	let xR = document.querySelector('#coorXR').value
+	let yR = document.querySelector('#coorYR').value
+	
 	avioes.map((aviao) => {
-        if(aviao.ativo) {			
-			novasCoordenadas = rotacionarPonto(aviao.x, aviao.y, angulo)
+        if(aviao.ativo) {
+			let x, y
+
+			x = aviao.x
+			y = aviao.y
+
+			if (xR > 0)
+				x = xR
+
+			if (yR > 0)
+				y = yR
+
+			novasCoordenadas = rotacionarPonto(x, y, angulo)
 
 			aviao.x = novasCoordenadas.x
 			aviao.y = novasCoordenadas.y
