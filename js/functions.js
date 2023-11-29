@@ -242,23 +242,37 @@ function calcularTrajetoria(aviao) {
 }
 
 // Calcula se há uma colisão entre dois aviões com base em suas trajetórias
-function calcularColisao(aviaoA, aviaoB) {
-    // Calcula as trajetórias dos dois aviões
+function calcularColisaoEntreTodos(avioes, tempoMinimo) {
+    let colisoes = [];
+
+    for (let i = 0; i < avioes.length; i++) {
+        for (let j = i + 1; j < avioes.length; j++) {
+            let aviaoA = avioes[i];
+            let aviaoB = avioes[j];
+            let resultado = calcularColisaoEspecifica(aviaoA, aviaoB, tempoMinimo);
+
+            if (resultado.colisao) {
+                colisoes.push({ aviaoA: aviaoA.id, aviaoB: aviaoB.id, ponto: resultado.ponto, tempoColisao: resultado.tempoColisao });
+            }
+        }
+    }
+
+    return colisoes;
+}
+
+function calcularColisaoEspecifica(aviaoA, aviaoB, tempoMinimo) {
     let trajetoriaA = calcularTrajetoria(aviaoA);
     let trajetoriaB = calcularTrajetoria(aviaoB);
 
-    // Encontra o ponto de interseção das duas trajetórias
     let x = (trajetoriaB.b - trajetoriaA.b) / (trajetoriaA.m - trajetoriaB.m);
     let y = trajetoriaA.m * x + trajetoriaA.b;
 
-    // Calcular o tempo para cada avião chegar ao ponto de interseção
     let tempoA = calculaTempo(x, y, aviaoA.velocidade);
     let tempoB = calculaTempo(x, y, aviaoB.velocidade);
 
-    // Verificar se os tempos são próximos o suficiente para uma colisão
     let diferencaTempo = Math.abs(tempoA - tempoB);
-    if (diferencaTempo <= intervaloAceitavel) {
-		let tempoColisao = Math.min(tempoA, tempoB);
+    if (diferencaTempo <= tempoMinimo) {
+        let tempoColisao = Math.min(tempoA, tempoB);
         return { colisao: true, ponto: { x, y }, tempoColisao };
     } else {
         return { colisao: false };
