@@ -20,10 +20,10 @@
         <?php include("./cmp/clouds/clouds.php");?>
         
         <?php include("./cmp/navbar/nav.html");?>
-
+<!-- 
         <div class="containeraviao">
             <div class="aviao"><img src="./cmp/imgs/aviao.svg" alt=""></div>
-        </div>
+        </div> -->
 
         <?php include("./cmp/popups/novoaviao.html");?>
 
