@@ -301,11 +301,11 @@ function verificarRotaColisao() {
 		return false
 	}
 
-	let avioesEmRotaDeColisao = calcularColisoesPotenciais(tempo)
+	let avioesEmRotaDeColisao = calcularRotaDeColisaoComTempo(tempo)
 
 	if(avioesEmRotaDeColisao.length > 0) {
 		avioesEmRotaDeColisao.map((av) => {
-			msg += `<p>O avião de ID ${av.aviao1.id} está irá colidir com o avião de ID ${av.aviao2.id} nas coordenadas (${av.pontoColisao.x}, ${av.pontoColisao.y}) após ${av.tempoColisao} un. de tempo!</p>`
+			msg += `<p>O avião de ID ${av.aviao1.id} está irá colidir com o avião de ID ${av.aviao2.id} após ${av.tempoColisao} un. de tempo!</p>`
 		})
 	} else {
 		msg = '<p> Os aviões não colidirão no momento futuro especificado</p>'
