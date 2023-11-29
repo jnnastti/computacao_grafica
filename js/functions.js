@@ -1,4 +1,5 @@
 var avioes = []
+var intervaloAceitavel = 2
 
 // Cria e retorna uma variavel avião
 function Aviao(x, y, raio, angulo, direcao, velocidade, ativo = true) {
@@ -227,10 +228,14 @@ function grausParaRadianos(graus) {
     return graus * (Math.PI / 180);
 }
 
+function calcularCoeficienteAngular(direcao) {
+    return direcao.y / direcao.x;
+}
+
 // Calcula a equação da trajetória linear de um avião com base em sua posição e ângulo
 function calcularTrajetoria(aviao) {
     // Calcula o coeficiente angular (m) da trajetória usando a tangente do ângulo em radianos
-    let m = Math.tan(grausParaRadianos(aviao.angulo));
+    let m = calcularCoeficienteAngular(aviao.direcao);
     // Calcula a interseção y (b) da trajetória com base na posição inicial do avião
     let b = aviao.y - m * aviao.x;
     return { m, b };
@@ -253,7 +258,8 @@ function calcularColisao(aviaoA, aviaoB) {
     // Verificar se os tempos são próximos o suficiente para uma colisão
     let diferencaTempo = Math.abs(tempoA - tempoB);
     if (diferencaTempo <= intervaloAceitavel) {
-        return { colisao: true, ponto: { x, y } };
+		let tempoColisao = Math.min(tempoA, tempoB);
+        return { colisao: true, ponto: { x, y }, tempoColisao };
     } else {
         return { colisao: false };
     }
