@@ -178,6 +178,7 @@ function distanciaEntreAvioes(a1, a2) {
 }
 
 //Função para calcular rota de colisão
+/*
 function calcularRotaDeColisaoComTempo(tempo) {
 	let avioesEmRotaDeColisao = []
 
@@ -185,12 +186,12 @@ function calcularRotaDeColisaoComTempo(tempo) {
 		for (let j = i + 1; j < avioes.length; j++) {
 			var emRota = emRotaDeColisao(avioes[i], avioes[j], tempo)
 
-			if(emRota) {
+			if (emRota) {
 				avioesEmRotaDeColisao.push(emRota)
 			}
 		}
 	}
-	
+
 	return avioesEmRotaDeColisao
 }
 
@@ -198,25 +199,70 @@ function emRotaDeColisao(aviao1, aviao2, tempo) {
 	let x1 = aviao1.x
 	let y1 = aviao1.y
 	let v1 = aviao1.velocidade
-	
+
 	let x2 = aviao2.x
 	let y2 = aviao2.y
 	let v2 = aviao2.velocidade
 
-    // Calcular as posições no momento futuro
+	// Calcular as posições no momento futuro
 	const x1Futuro = parseFloat(x1) + parseFloat(v1) * parseFloat(tempo);
-    const y1Futuro = parseFloat(y1) + parseFloat(v1) * parseFloat(tempo);
-    const x2Futuro = parseFloat(x2) + parseFloat(v2) * parseFloat(tempo);
-    const y2Futuro = parseFloat(y2) + parseFloat(v2) * parseFloat(tempo);
+	const y1Futuro = parseFloat(y1) + parseFloat(v1) * parseFloat(tempo);
+	const x2Futuro = parseFloat(x2) + parseFloat(v2) * parseFloat(tempo);
+	const y2Futuro = parseFloat(y2) + parseFloat(v2) * parseFloat(tempo);
 
-    // Verificar se os objetos estarão próximos no momento futuro
-    const distanciaAoQuadrado = (x1Futuro - x2Futuro) ** 2 + (y1Futuro - y2Futuro) ** 2;
+	// Verificar se os objetos estarão próximos no momento futuro
+	const distanciaAoQuadrado = (x1Futuro - x2Futuro) ** 2 + (y1Futuro - y2Futuro) ** 2;
 
-    // Se a distância ao quadrado for menor que zero, os objetos estão colidindo
-    if (distanciaAoQuadrado < 0) {
-        return { aviao1: aviao1, aviao2: aviao2, x: x1Futuro, y: y1Futuro, tempo: tempo };
+	// Se a distância ao quadrado for menor que zero, os objetos estão colidindo
+	if (distanciaAoQuadrado < 0) {
+		return { aviao1: aviao1, aviao2: aviao2, x: x1Futuro, y: y1Futuro, tempo: tempo };
+	} else {
+		return false;
+	}
+}
+*/
+
+// Converte um ângulo de graus para radianos
+function grausParaRadianos(graus) {
+    return graus * (Math.PI / 180);
+}
+
+// Calcula a equação da trajetória linear de um avião com base em sua posição e ângulo
+function calcularTrajetoria(aviao) {
+    // Calcula o coeficiente angular (m) da trajetória usando a tangente do ângulo em radianos
+    let m = Math.tan(grausParaRadianos(aviao.angulo));
+    // Calcula a interseção y (b) da trajetória com base na posição inicial do avião
+    let b = aviao.y - m * aviao.x;
+    return { m, b };
+}
+
+// Calcula se há uma colisão entre dois aviões com base em suas trajetórias
+function calcularColisao(aviaoA, aviaoB) {
+    // Calcula as trajetórias dos dois aviões
+    let trajetoriaA = calcularTrajetoria(aviaoA);
+    let trajetoriaB = calcularTrajetoria(aviaoB);
+
+    // Encontra o ponto de interseção das duas trajetórias
+    let x = (trajetoriaB.b - trajetoriaA.b) / (trajetoriaA.m - trajetoriaB.m);
+    let y = trajetoriaA.m * x + trajetoriaA.b;
+
+    // Calcular o tempo para cada avião chegar ao ponto de interseção
+    let tempoA = calculaTempo(x, y, aviaoA.velocidade);
+    let tempoB = calculaTempo(x, y, aviaoB.velocidade);
+
+    // Verificar se os tempos são próximos o suficiente para uma colisão
+    let diferencaTempo = Math.abs(tempoA - tempoB);
+    if (diferencaTempo <= intervaloAceitavel) {
+        return { colisao: true, ponto: { x, y } };
     } else {
-        return false;
+        return { colisao: false };
     }
 }
 
+// Função para calcular o tempo necessário para um avião chegar ao ponto de interseção
+function calculaTempo(x, y, velocidade) {
+    // Calcula a distância do avião até o ponto de interseção
+    let distancia = Math.sqrt(x * x + y * y);
+    // Calcula o tempo baseado na distância e na velocidade
+    return distancia / velocidade;
+}
